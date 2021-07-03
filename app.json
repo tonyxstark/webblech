@@ -4,7 +4,7 @@
   "keywords": [
     "telegram"
   ],
-  "repository": "https://github.com/AmirulAndalib/lazyleech-heroku",
+  "repository": "https://github.com/XcodersHub/lazyleech-heroku",
   "stack": "container",
   "env":{
         "API_ID":{
