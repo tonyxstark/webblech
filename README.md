@@ -79,7 +79,7 @@ testwatermark
 
 ---
 ## Deploy to Heroku (Dont Abuse ) 🙄 or heroku will block the repo...
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/depploy?template=https://github.com/AmirulAndalib/lazyleech-heroku)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/XcodersHub/lazyleech-heroku)
 ---
 
 ## Credits 📍
