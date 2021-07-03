@@ -1,8 +1,6 @@
-# LazyLeech 
+# LazyLeech Telegram Leech Bot (Tg Upload only)
 
-<p align="center">
-“	Heroku Supported Telegram Torrent Leeching Bot by Some Weebs ” 
-</p>
+# Heroku Supported Telegram Torrent Leeching Bot by  Weebs/Anime Libr </p>
 
 # Table of Content
 - [WHAT IS THIS REPO ABOUT ?](#what-is-this-repo-about)
@@ -78,6 +76,11 @@ delwatermark
 deletewatermark
 testwatermark
 ```
+
+---
+## Deploy to Heroku (Dont Abuse ) 🙄 or heroku will block the repo...
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/depploy?template=https://github.com/AmirulAndalib/lazyleech-heroku)
+---
 
 ## Credits 📍
 
