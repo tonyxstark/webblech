@@ -24,6 +24,7 @@ import asyncio
 import zipfile
 import tempfile
 import traceback
+from pyrogram import StopTransmission
 from collections import defaultdict
 from natsort import natsorted
 from pyrogram.parser import html as pyrogram_html
@@ -32,7 +33,7 @@ from .. import PROGRESS_UPDATE_DELAY, ADMIN_CHATS, preserved_logs, TESTMODE, Sen
 from .misc import split_files, get_file_mimetype, format_bytes, get_video_info, generate_thumbnail, return_progress_string, calculate_eta, watermark_photo
 
 upload_queue = asyncio.Queue()
-upload_statuses = dict()
+upload_statuses = {}
 upload_tamper_lock = asyncio.Lock()
 message_exists = defaultdict(set)
 message_exists_lock = asyncio.Lock()
@@ -74,7 +75,7 @@ async def upload_worker():
         if task:
             await task
 
-upload_waits = dict()
+upload_waits = {}
 async def _upload_worker(client, message, reply, torrent_info, user_id, flags):
     files = dict()
     sent_files = []
@@ -227,6 +228,8 @@ async def _upload_file(client, message, reply, filename, filepath, force_documen
                             resp = await reply.reply_document(filepath, thumb=thumbnail, caption=filename,
                                                               parse_mode=None, progress=progress_callback,
                                                               progress_args=progress_args)
+                    except StopTransmission:
+                        resp = None
                     except Exception:
                         await message.reply_text(traceback.format_exc(), parse_mode=None)
                         continue
@@ -248,7 +251,7 @@ async def _upload_file(client, message, reply, filename, filepath, force_documen
         async with upload_tamper_lock:
             upload_waits.pop(upload_identifier)
 
-progress_callback_data = dict()
+progress_callback_data = {}
 stop_uploads = set()
 async def progress_callback(current, total, client, message, reply, filename, user_id):
     try:

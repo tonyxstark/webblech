@@ -21,6 +21,7 @@ import base64
 import random
 import asyncio
 import tempfile
+from .. import ARIA2_SECRET
 
 HEX_CHARACTERS = 'abcdef'
 HEXNUMERIC_CHARACTERS = HEX_CHARACTERS + '0123456789'
@@ -36,7 +37,11 @@ def _raise_or_return(data):
         raise Aria2Error(data['error'])
     return data['result']
 
-async def aria2_request(session, method, params=[]):
+async def aria2_request(session, method, params=None):
+    if params is None:
+        params = []
+    if ARIA2_SECRET:
+        params.insert(0, 'token:' + ARIA2_SECRET)
     data = {'jsonrpc': '2.0', 'id': str(time.time()), 'method': method, 'params': params}
     async with session.post('http://127.0.0.1:6800/jsonrpc', data=json.dumps(data)) as resp:
         return await resp.json(encoding='utf-8')
@@ -111,7 +116,11 @@ async def aria2_add_magnet(session, user_id, link, timeout=0):
             try:
                 await aria2_remove(session, gid)
             except Aria2Error as ex:
-                if not (ex.error_code == 1 and ex.error_message == f'Active Download not found for GID#{gid}'):
+                if (
+                    ex.error_code != 1
+                    or ex.error_message
+                    != f'Active Download not found for GID#{gid}'
+                ):
                     raise
 
 async def aria2_add_directdl(session, user_id, link, filename=None, timeout=60):

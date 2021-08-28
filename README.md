@@ -1,6 +1,6 @@
 # LazyLeech Telegram Leech Bot (Tg Upload only)
 
-# Heroku Supported Telegram Torrent Leeching Bot by  Weebs/Anime Libr </p>
+
 
 # Table of Content
 - [WHAT IS THIS REPO ABOUT ?](#what-is-this-repo-about)
